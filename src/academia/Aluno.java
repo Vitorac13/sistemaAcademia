@@ -1,9 +1,11 @@
+package academia
+
 public class Aluno {
 
     private String nome;
     private String cpf;
     private Professor professorResponsavel;
-    private FichaTreino fichaTreino;
+    private List<FichaTreino> fichasTreino;
 
     public Aluno(String nome, String cpf) {
         if (nome == null || nome.isBlank()) {
@@ -34,11 +36,13 @@ public class Aluno {
         this.professorResponsavel = professorResponsavel;
     }
 
-    public FichaTreino getFichaTreino() {
-        return fichaTreino;
+    public List<FichaTreino> getFichasTreino() {
+        return fichasTreino;
     }
 
-    public void setFichaTreino(FichaTreino fichaTreino) {
-        this.fichaTreino = fichaTreino;
+    public void adicionarFichaTreino(FichaTreino ficha) {
+        if (ficha != null && !fichasTreino.contains(ficha)) {
+            fichasTreino.add(ficha);
+        }
     }
 }

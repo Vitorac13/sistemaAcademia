@@ -1,3 +1,5 @@
+package academia
+
 public class ExercicioTreino {
 
     private Exercicio exercicio;
