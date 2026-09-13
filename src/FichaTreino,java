@@ -1,0 +1,53 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class FichaTreino {
+
+    private Aluno aluno;
+    private Professor professor;
+    private List<ExercicioTreino> exercicios;
+    private boolean ativa;
+
+    public FichaTreino(Aluno aluno, Professor professor) {
+        this.aluno = aluno;
+        this.professor = professor;
+        this.exercicios = new ArrayList<>();
+        this.ativa = true;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public List<ExercicioTreino> getExercicios() {
+        return exercicios;
+    }
+
+    public boolean isAtiva() {
+        return ativa;
+    }
+
+    public void adicionarExercicio(ExercicioTreino exercicioTreino) {
+        if (exercicioTreino != null && !exercicios.contains(exercicioTreino)) {
+            exercicios.add(exercicioTreino);
+        }
+    }
+
+    public void ativar() {
+    if (exercicios.isEmpty()) {
+        throw new IllegalStateException(
+            "A ficha de treino deve possuir pelo menos um exercício."
+        );
+    }
+
+    this.ativa = true;
+}
+
+    public void desativar() {
+        this.ativa = false;
+    }
+}
