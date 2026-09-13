@@ -1,5 +1,3 @@
-package academia
-
 public class Exercicio {
 
     private String nome;

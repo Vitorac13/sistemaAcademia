@@ -18,3 +18,6 @@ Regras de negócio (implementar):
 * Não permitir que um exercício seja incluído duas vezes na mesma ficha de treino;
 * Um professor poderá ser responsável por vários alunos;
 * Ao cadastrar um exercício em um treino, deverão ser informadas as séries e repetições.
+
+Erros de compilação:
+* Ao utilizar o package nos arquivos do projeto, o java acusou o erro "main.java:1: error: compact source file should not have package declaration", não sendo necessária a utilização desse comando na versão do JAVA25.
