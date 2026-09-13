@@ -19,6 +19,7 @@ public class Aluno {
 
         this.nome = nome;
         this.cpf = cpf;
+        this.fichasTreino = new ArrayList<>();
     }
 
     public String getNome() {
@@ -42,7 +43,7 @@ public class Aluno {
     }
 
     public void adicionarFichaTreino(FichaTreino ficha) {
-        if (ficha != null && !fichasTreino.contains(ficha)) {
+        if (ficha != null) {
             fichasTreino.add(ficha);
         }
     }

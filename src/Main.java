@@ -1,6 +1,3 @@
-import java.util.Scanner;
-
-Scanner scanner = new Scanner(System.in);
 Academia academia = new Academia();
 
 void main(){
@@ -17,104 +14,47 @@ void main(){
         IO.println("4 - Listar alunos");
         IO.println("5 - Listar professores");
         IO.println("6 - Listar exercícios");
+        IO.println("7 - Fichas de treino");
+        IO.println("8 - Criar fichas de treino");
         IO.println("0 - Sair");
-        IO.print("Escolha uma opção: ");
 
-        opcao = scanner.nextInt();
-        scanner.nextLine();
+        opcao = Integer.parseInt(IO.readln("Escolha uma opção: "));
 
         switch (opcao) {
 
             case 1:
-                cadastrarAluno();
+                academia.cadastrarAluno();
                 break;
-
             case 2:
-                cadastrarProfessor();
+                academia.cadastrarProfessor();
                 break;
-
             case 3:
-                cadastrarExercicio();
+                academia.cadastrarExercicio();
                 break;
-
             case 4:
                 listarAlunos();
                 break;
-
             case 5:
                 listarProfessores();
                 break;
-
             case 6:
                 listarExercicios();
                 break;
-
+            case 7:
+                acessarFichasTreino();
+                break;
+            case 8:
+                academia.criarFichaTreino();
+                break;
             case 0:
                 IO.println("Programa encerrado.");
                 break;
-
             default:
                 IO.println("Opção inválida.");
         }
 
     } while (opcao != 0);
-
-    scanner.close();
 }
-
-void cadastrarAluno() {
-
-    IO.println("\n--- CADASTRO DE ALUNO ---");
-
-    IO.print("Nome: ");
-    String nome = scanner.nextLine();
-
-    IO.print("CPF: ");
-    String cpf = scanner.nextLine();
-
-    Aluno aluno = new Aluno(nome, cpf);
-
-    academia.adicionarAluno(aluno);
-
-    IO.println("Aluno cadastrado com sucesso!");
-}
-
-
-void cadastrarProfessor() {
-
-    IO.println("\n--- CADASTRO DE PROFESSOR ---");
-
-    IO.print("Nome: ");
-    String nome = scanner.nextLine();
-
-    IO.print("CPF: ");
-    String cpf = scanner.nextLine();
-
-    Professor professor = new Professor(nome, cpf);
-
-    academia.adicionarProfessor(professor);
-
-    IO.println("Professor cadastrado com sucesso!");
-}
-
-
-void cadastrarExercicio() {
-
-    IO.println("\n--- CADASTRO DE EXERCÍCIO ---");
-
-    IO.print("Nome: ");
-    String nome = scanner.nextLine();
-
-    IO.print("Descrição: ");
-    String descricao = scanner.nextLine();
-
-    Exercicio exercicio = new Exercicio(nome, descricao);
-
-    academia.adicionarExercicio(exercicio);
-
-    IO.println("Exercício cadastrado com sucesso!");
-}
-
 
 void listarAlunos() {
 
@@ -143,6 +83,58 @@ void listarExercicios() {
     for (Exercicio exercicio : academia.getExercicios()) {
         IO.println("Nome: " + exercicio.getNome() + " | Descrição: " + exercicio.getDescricao());
     }
+}
+
+void acessarFichasTreino() {
+    IO.println("\n===== FICHAS DE TREINO =====");
+
+    if (academia.getAlunos().isEmpty()) {
+        IO.println("Nenhum aluno cadastrado.");
+        return;
+    }
+
+    IO.println("Alunos:");
+
+    for (int i = 0; i < academia.getAlunos().size(); i++) {
+        Aluno aluno = academia.getAlunos().get(i);
+
+        IO.println((i + 1) + " - " + aluno.getNome());
+    }
+
+    int opcaoAluno = Integer.parseInt(IO.readln("\nEscolha o aluno: "));
+
+    if (opcaoAluno < 1 || opcaoAluno > academia.getAlunos().size()) {
+        IO.println("Aluno inválido.");
+        return;
+    }
+
+    Aluno alunoSelecionado = academia.getAlunos().get(opcaoAluno - 1);
+
+    IO.println("\n===== FICHAS DE " + alunoSelecionado.getNome().toUpperCase() + " =====");
+
+    if (alunoSelecionado.getFichasTreino().isEmpty()) {
+        IO.println("Este aluno não possui fichas de treino.");
+        return;
+    }
+
+    for (FichaTreino ficha : alunoSelecionado.getFichasTreino()) {
+
+        IO.println("\n------------------------------");
+        IO.println("Dia: " + ficha.getDia());
+        IO.println("Professor: " + ficha.getProfessor().getNome());
+        IO.println("Status: " + (ficha.isAtiva() ? "Ativa" : "Inativa"));
+
+        IO.println("\nExercícios:");
+
+        for (ExercicioTreino exercicioTreino : ficha.getExercicios()) {
+
+            Exercicio exercicio = exercicioTreino.getExercicio();
+
+            IO.println("- " + exercicio.getNome() + " | " + exercicioTreino.getSeries() + " séries" + " x " + exercicioTreino.getRepeticoes() + " repetições");
+        }
+    }
+
+    IO.println("\n------------------------------");
 }
 
 void dadosTeste(){
@@ -179,4 +171,18 @@ void dadosTeste(){
     academia.adicionarExercicio(exercicio3);
     academia.adicionarExercicio(exercicio4);
     academia.adicionarExercicio(exercicio5);
+
+    ExercicioTreino treino1 = new ExercicioTreino(exercicio1, 4, 10);
+    ExercicioTreino treino2 = new ExercicioTreino(exercicio2, 4, 12);
+    ExercicioTreino treino3 = new ExercicioTreino(exercicio3, 3, 10);
+
+    FichaTreino fichaJoaoSegunda = new FichaTreino(aluno1, professor1, "Ficha_Segunda");
+
+    fichaJoaoSegunda.adicionarExercicio(treino1);
+    fichaJoaoSegunda.adicionarExercicio(treino2);
+    fichaJoaoSegunda.adicionarExercicio(treino3);
+
+    aluno1.adicionarFichaTreino(fichaJoaoSegunda);
+
+    fichaJoaoSegunda.ativar();
 }
