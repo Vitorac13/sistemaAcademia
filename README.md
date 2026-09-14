@@ -182,6 +182,8 @@ As cardinalidades utilizadas são:
 * `FichaTreino` 1 → 0..* `ExercicioTreino` — composição;
 * `ExercicioTreino` 1 → 1 `Exercicio` — associação.
 
+## Diagrama de Entidade-Relacionamento (DER) 
+
 ![alt text](UML_SistemaGestaoAcademia.jpg)
 
 ## 6. Regras de negócio
