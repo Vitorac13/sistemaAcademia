@@ -16,6 +16,7 @@ void main(){
         IO.println("6 - Listar exercícios");
         IO.println("7 - Fichas de treino");
         IO.println("8 - Criar fichas de treino");
+        IO.println("9 - Ativar/Desativar ficha de treino");
         IO.println("0 - Sair");
 
         opcao = Integer.parseInt(IO.readln("Escolha uma opção: "));
@@ -45,6 +46,9 @@ void main(){
                 break;
             case 8:
                 academia.criarFichaTreino();
+                break;
+            case 9:
+                alterarStatusFicha();
                 break;
             case 0:
                 IO.println("Programa encerrado.");
@@ -137,6 +141,71 @@ void acessarFichasTreino() {
     IO.println("\n------------------------------");
 }
 
+void alterarStatusFicha() {
+
+    IO.println("\n===== ATIVAR/DESATIVAR FICHA =====");
+
+    if (academia.getAlunos().isEmpty()) {
+        IO.println("Nenhum aluno cadastrado.");
+        return;
+    }
+
+    IO.println("\nAlunos:");
+
+    for (int i = 0; i < academia.getAlunos().size(); i++) {
+        Aluno aluno = academia.getAlunos().get(i);
+
+        IO.println((i + 1) + " - " + aluno.getNome());
+    }
+
+    int opcaoAluno = Integer.parseInt(
+        IO.readln("Escolha o aluno: ")
+    );
+
+    if (opcaoAluno < 1 || opcaoAluno > academia.getAlunos().size()) {
+        IO.println("Aluno inválido.");
+        return;
+    }
+
+    Aluno aluno = academia.getAlunos().get(opcaoAluno - 1);
+
+    if (aluno.getFichasTreino().isEmpty()) {
+        IO.println("Este aluno não possui fichas de treino.");
+        return;
+    }
+
+    IO.println("\nFichas de " + aluno.getNome() + ":");
+
+    for (int i = 0; i < aluno.getFichasTreino().size(); i++) {
+        FichaTreino ficha = aluno.getFichasTreino().get(i);
+
+        IO.println((i + 1) + " - " + ficha.getDia() + " | " + (ficha.isAtiva() ? "Ativa" : "Inativa"));
+    }
+
+    int opcaoFicha = Integer.parseInt(IO.readln("Escolha a ficha: ")
+    );
+
+    if (opcaoFicha < 1 || opcaoFicha > aluno.getFichasTreino().size()) {
+        IO.println("Ficha inválida.");
+        return;
+    }
+
+    FichaTreino fichaSelecionada = aluno.getFichasTreino().get(opcaoFicha - 1);
+
+    if (fichaSelecionada.isAtiva()) {
+
+        fichaSelecionada.desativar();
+
+        IO.println("Ficha desativada com sucesso.");
+
+    } else {
+
+        aluno.ativarFichaTreino(fichaSelecionada);
+
+        IO.println("Ficha ativada com sucesso.");
+    }
+}
+
 void dadosTeste(){
 
     Professor professor1 = new Professor("Carlos Mendes", "11111111111");
@@ -184,5 +253,5 @@ void dadosTeste(){
 
     aluno1.adicionarFichaTreino(fichaJoaoSegunda);
 
-    fichaJoaoSegunda.ativar();
+    aluno1.ativarFichaTreino(fichaJoaoSegunda);
 }

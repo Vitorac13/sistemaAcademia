@@ -63,7 +63,8 @@ Entre seus principais métodos estão:
 * `cadastrarAluno()`;
 * `cadastrarProfessor()`;
 * `cadastrarExercicio()`;
-* `criarFichaTreino()`.
+* `criarFichaTreino()`;
+* `ativarFichaTreino()`.
 
 ### 4.2 Aluno
 
@@ -85,7 +86,8 @@ Principais métodos:
 * `getProfessorResponsavel()`;
 * `setProfessorResponsavel()`;
 * `getFichasTreino()`;
-* `adicionarFichaTreino()`.
+* `adicionarFichaTreino()`;
+* `ativarFichaTreino()`.
 
 ### 4.3 Professor
 
@@ -163,22 +165,22 @@ Principais métodos:
 * `ativar()`;
 * `desativar()`.
 
-> **5. Relacionamentos entre as classes**
->
-> O sistema utiliza diferentes tipos de relacionamentos entre suas classes. A classe `Academia` mantém coleções de alunos, professores e exercícios, caracterizando relacionamentos de agregação. A relação entre `Professor` e `Aluno` é uma associação, na qual um professor pode ser responsável por vários alunos.
->
-> Um `Aluno` pode possuir várias `FichaTreino`, e cada ficha está associada a um `Professor`. A relação entre `FichaTreino` e `ExercicioTreino` é de composição, pois os exercícios de treino representam elementos pertencentes à ficha. Por fim, `ExercicioTreino` possui uma associação com `Exercicio`, que representa o exercício cadastrado no sistema.
->
-> As cardinalidades utilizadas são:
->
-> * `Academia` 1 → 0..* `Aluno` — agregação;
-> * `Academia` 1 → 0..* `Professor` — agregação;
-> * `Academia` 1 → 0..* `Exercicio` — agregação;
-> * `Professor` 1 → 0..* `Aluno` — associação;
-> * `Aluno` 1 → 0..* `FichaTreino` — associação;
-> * `Professor` 1 → 0..* `FichaTreino` — associação;
-> * `FichaTreino` 1 → 0..* `ExercicioTreino` — composição;
-> * `ExercicioTreino` 1 → 1 `Exercicio` — associação.
+### 5. Relacionamentos entre as classes
+
+O sistema utiliza diferentes tipos de relacionamentos entre suas classes. A classe `Academia` mantém coleções de alunos, professores e exercícios, caracterizando relacionamentos de agregação. A relação entre `Professor` e `Aluno` é uma associação, na qual um professor pode ser responsável por vários alunos.
+
+Um `Aluno` pode possuir várias `FichaTreino`, e cada ficha está associada a um `Professor`. A relação entre `FichaTreino` e `ExercicioTreino` é de composição, pois os exercícios de treino representam elementos pertencentes à ficha. Por fim, `ExercicioTreino` possui uma associação com `Exercicio`, que representa o exercício cadastrado no sistema.
+
+As cardinalidades utilizadas são:
+
+* `Academia` 1 → 0..* `Aluno` — agregação;
+* `Academia` 1 → 0..* `Professor` — agregação;
+* `Academia` 1 → 0..* `Exercicio` — agregação;
+* `Professor` 1 → 0..* `Aluno` — associação;
+* `Aluno` 1 → 0..* `FichaTreino` — associação;
+* `Professor` 1 → 0..* `FichaTreino` — associação;
+* `FichaTreino` 1 → 0..* `ExercicioTreino` — composição;
+* `ExercicioTreino` 1 → 1 `Exercicio` — associação.
 
 ## 6. Regras de negócio
 

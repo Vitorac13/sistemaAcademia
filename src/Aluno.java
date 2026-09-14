@@ -47,4 +47,18 @@ public class Aluno {
             fichasTreino.add(ficha);
         }
     }
+
+    public void ativarFichaTreino(FichaTreino ficha) {
+
+    if (!fichasTreino.contains(ficha)) {
+        return;
+    }
+
+    for (FichaTreino fichaTreino : fichasTreino) {
+        fichaTreino.desativar();
+    }
+
+    ficha.ativar();
+}
+
 }
