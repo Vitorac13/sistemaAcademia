@@ -182,6 +182,8 @@ As cardinalidades utilizadas são:
 * `FichaTreino` 1 → 0..* `ExercicioTreino` — composição;
 * `ExercicioTreino` 1 → 1 `Exercicio` — associação.
 
+![alt text](SistemaAcademia_UML.jpg)
+
 ## 6. Regras de negócio
 
 O sistema possui regras para representar o funcionamento básico de uma academia.
