@@ -1,19 +1,18 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class FichaTreino {
 
     private String diaFicha;
     private Aluno aluno;
     private Professor professor;
-    private List<ExercicioTreino> exercicios;
+    private ExercicioTreino[] exercicios;
+    private int quantidadeExercicios;
     private boolean ativa;
 
     public FichaTreino(Aluno aluno, Professor professor, String diaFicha) {
         this.diaFicha = diaFicha;
         this.aluno = aluno;
         this.professor = professor;
-        this.exercicios = new ArrayList<>();
+        this.exercicios = new ExercicioTreino[10];
+        this.quantidadeExercicios = 0;
         this.ativa = false;
     }
 
@@ -29,8 +28,12 @@ public class FichaTreino {
         return professor;
     }
 
-    public List<ExercicioTreino> getExercicios() {
+    public ExercicioTreino[] getExercicios() {
         return exercicios;
+    }
+
+    public int getQuantidadeExercicios() {
+        return quantidadeExercicios;
     }
 
     public boolean isAtiva() {
@@ -38,19 +41,32 @@ public class FichaTreino {
     }
 
     public void adicionarExercicio(ExercicioTreino exercicioTreino) {
-        if (exercicioTreino != null) {
-            exercicios.add(exercicioTreino);
+
+        if (exercicioTreino == null) {
+            return;
         }
+
+        if (quantidadeExercicios >= exercicios.length) {
+            IO.println("Limite de exercícios da ficha atingido.");
+            return;
+        }
+
+        exercicios[quantidadeExercicios] = exercicioTreino;
+        quantidadeExercicios++;
     }
 
     public void ativar() {
-    if (exercicios.isEmpty()) {
-        throw new IllegalStateException("A ficha de treino deve possuir pelo menos um exercício.");
+
+        if (quantidadeExercicios == 0) {
+            IO.println("A ficha de treino deve possuir pelo menos um exercício.");
+            return;
+        }
+
+        this.ativa = true;
     }
-    this.ativa = true;
-}
 
     public void desativar() {
         this.ativa = false;
     }
+
 }
