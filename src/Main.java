@@ -15,7 +15,7 @@ void main() {
         IO.println("4 - Listar alunos");
         IO.println("5 - Listar professores");
         IO.println("6 - Listar exercícios");
-        IO.println("7 - Fichas de treino");
+        IO.println("7 - Listar fichas de treino");
         IO.println("8 - Criar fichas de treino");
         IO.println("9 - Ativar/Desativar ficha de treino");
         IO.println("0 - Sair");
@@ -105,10 +105,7 @@ void listarProfessores() {
 
         Professor professor = academia.getProfessores()[i];
 
-        IO.println(
-            "Nome: " + professor.getNome()
-            + " | CPF: " + professor.getCpf()
-        );
+        IO.println("Nome: " + professor.getNome() + " | CPF: " + professor.getCpf());
     }
 }
 
@@ -125,10 +122,7 @@ void listarExercicios() {
 
         Exercicio exercicio = academia.getExercicios()[i];
 
-        IO.println(
-            "Nome: " + exercicio.getNome()
-            + " | Descrição: " + exercicio.getDescricao()
-        );
+        IO.println("Nome: " + exercicio.getNome() + " | Descrição: " + exercicio.getDescricao());
     }
 }
 
@@ -136,7 +130,7 @@ void acessarFichasTreino() {
 
     IO.println("\n===== FICHAS DE TREINO =====");
 
-    if (academia.getQuantidadeAlunos() == 0) {
+    if (academia.getQuantidadeAlunos() == 0) {          // Verifica se tem aluno cadastrado
         IO.println("Nenhum aluno cadastrado.");
         return;
     }
@@ -176,13 +170,10 @@ void acessarFichasTreino() {
         IO.println("Status: " + (ficha.isAtiva() ? "Ativa" : "Inativa"));
         IO.println("\nExercícios:");
 
-        for ( int j = 0; j < ficha.getQuantidadeExercicios(); j++){
+        for (int j = 0; j < ficha.getQuantidadeExercicios(); j++){
 
-            ExercicioTreino exercicioTreino =
-                ficha.getExercicios()[j];
-
-            Exercicio exercicio =
-                exercicioTreino.getExercicio();
+            ExercicioTreino exercicioTreino = ficha.getExercicios()[j];     // Contem series e repeticoes
+            Exercicio exercicio = exercicioTreino.getExercicio();           // Contem o nome do Exercicio
 
             IO.println("- " + exercicio.getNome() + " | " + exercicioTreino.getSeries() + " séries x " + exercicioTreino.getRepeticoes() + " repetições");
         }
@@ -238,16 +229,14 @@ void alterarStatusFicha() {
         return;
     }
 
-    FichaTreino fichaSelecionada =
-        aluno.getFichasTreino()[opcaoFicha - 1];
+    FichaTreino fichaSelecionada = aluno.getFichasTreino()[opcaoFicha - 1];
 
-    if (fichaSelecionada.isAtiva()) {
+    if (fichaSelecionada.isAtiva()) {           // Se a ficha selecionada tiver ativa, ela será desativada
 
         fichaSelecionada.desativar();
         IO.println("Ficha desativada com sucesso.");
 
     } else {
-
         aluno.ativarFichaTreino(fichaSelecionada);
         IO.println("Ficha ativada com sucesso.");
     }

@@ -48,9 +48,9 @@ A classe `Academia` é responsável pelo gerenciamento dos principais objetos do
 
 Ela mantém listas de alunos, professores e exercícios:
 
-* `List<Aluno> alunos`;
-* `List<Professor> professores`;
-* `List<Exercicio> exercicios`.
+* `alunos: Aluno[]`;
+* `professores: Professor[]`;
+* `exercicios: Exercicio[]`.
 
 Entre seus principais métodos estão:
 

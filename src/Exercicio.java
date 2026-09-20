@@ -4,8 +4,11 @@ public class Exercicio {
     private String descricao;
 
     public Exercicio(String nome, String descricao) {
+
         this.nome = nome;
         this.descricao = descricao;
+
+        IO.println("Exercício cadastrado com sucesso!");
     }
 
     public String getNome() {

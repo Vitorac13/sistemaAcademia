@@ -11,7 +11,7 @@ public class FichaTreino {
         this.diaFicha = diaFicha;
         this.aluno = aluno;
         this.professor = professor;
-        this.exercicios = new ExercicioTreino[10];
+        this.exercicios = new ExercicioTreino[10];      // Limite de 10 exercicios por ficha
         this.quantidadeExercicios = 0;
         this.ativa = false;
     }
@@ -42,17 +42,22 @@ public class FichaTreino {
 
     public void adicionarExercicio(ExercicioTreino exercicioTreino) {
 
-        if (exercicioTreino == null) {
-            return;
-        }
-
         if (quantidadeExercicios >= exercicios.length) {
             IO.println("Limite de exercícios da ficha atingido.");
             return;
         }
 
+        for(int i=0; i < quantidadeExercicios; i++){
+            if(exercicioTreino.getExercicio().getNome().equals(this.exercicios[i].getExercicio().getNome())){
+                IO.println("\nEsta ficha já contém esse exercício!");
+                return;
+            }
+        }
+
         exercicios[quantidadeExercicios] = exercicioTreino;
         quantidadeExercicios++;
+        
+        IO.println("Exercício adicionado à ficha.");
     }
 
     public void ativar() {

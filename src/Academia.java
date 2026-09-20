@@ -17,46 +17,19 @@ public class Academia {
         quantidadeExercicios = 0;
     }
 
-    public void adicionarAluno(Aluno aluno) {
-
-        if (aluno == null) {
-            return;
-        }
-
-        if (quantidadeAlunos >= alunos.length) {
-            IO.println("Limite de alunos atingido.");
-            return;
-        }
+    public void adicionarAluno(Aluno aluno) {           // Está pública pois adicionamos casos testes no Main, mas deve ser privada
 
         alunos[quantidadeAlunos] = aluno;
         quantidadeAlunos++;
     }
 
-    public void adicionarProfessor(Professor professor) {
-
-        if (professor == null) {
-            return;
-        }
-
-        if (quantidadeProfessores >= professores.length) {
-            IO.println("Limite de professores atingido.");
-            return;
-        }
+    public void adicionarProfessor(Professor professor) {           // Está pública pois adicionamos casos testes no Main, mas deve ser privada
 
         professores[quantidadeProfessores] = professor;
         quantidadeProfessores++;
     }
 
-    public void adicionarExercicio(Exercicio exercicio) {
-
-        if (exercicio == null) {
-            return;
-        }
-
-        if (quantidadeExercicios >= exercicios.length) {
-            IO.println("Limite de exercícios atingido.");
-            return;
-        }
+    public void adicionarExercicio(Exercicio exercicio) {           // Está pública pois adicionamos casos testes no Main, mas deve ser privada
 
         exercicios[quantidadeExercicios] = exercicio;
         quantidadeExercicios++;
@@ -90,57 +63,80 @@ public class Academia {
 
         IO.println("\n--- CADASTRO DE ALUNO ---");
 
-        if (quantidadeAlunos >= alunos.length) {
+        if (quantidadeAlunos >= alunos.length) {        // Verifica se a quantidade de alunos não atingiu o limite do array
             IO.println("Limite de alunos atingido.");
             return;
         }
 
         String nome = IO.readln("Nome: ");
+        
+        if (nome.isEmpty()) {         // Tem que preencher a String nome
+            IO.println("O nome do aluno é obrigatório.");
+            return;
+        }
+
         String cpf = IO.readln("CPF: ");
+
+        if (cpf.isEmpty()) {          // Tem que preencher a String cpf
+            IO.println("O CPF do aluno é obrigatório.");
+            return;
+        }
 
         Aluno aluno = new Aluno(nome, cpf);
 
         adicionarAluno(aluno);
-
-        IO.println("Aluno cadastrado com sucesso!");
     }
 
     public void cadastrarProfessor() {
 
         IO.println("\n--- CADASTRO DE PROFESSOR ---");
 
-        if (quantidadeProfessores >= professores.length) {
+        if (quantidadeProfessores >= professores.length) {        // Verifica se a quantidade de alunos não atingiu o limite do array
             IO.println("Limite de professores atingido.");
             return;
         }
 
         String nome = IO.readln("Nome: ");
+        if (nome.isEmpty()) {         // Tem que preencher a String nome
+            IO.println("O nome do professor é obrigatório.");
+            return;
+        }
+
         String cpf = IO.readln("CPF: ");
+        if (cpf.isEmpty()) {          // Tem que preencher a String cpf
+            IO.println("O CPF do professor é obrigatório.");
+            return;
+        }
 
         Professor professor = new Professor(nome, cpf);
 
         adicionarProfessor(professor);
-
-        IO.println("Professor cadastrado com sucesso!");
     }
 
     public void cadastrarExercicio() {
 
         IO.println("\n--- CADASTRO DE EXERCÍCIO ---");
 
-        if (quantidadeExercicios >= exercicios.length) {
+        if (quantidadeExercicios >= exercicios.length) {        // Verifica se a quantidade de alunos não atingiu o limite do array
             IO.println("Limite de exercícios atingido.");
             return;
         }
-
+        
         String nome = IO.readln("Nome: ");
-        String descricao = IO.readln("Descrição: ");
+        if (nome.isEmpty()) {         // Tem que preencher a String nome
+            IO.println("O nome do exercício é obrigatório.");
+            return;
+        }
+
+        String descricao = IO.readln("Descrição: ");     
+        if (descricao.isEmpty()) {          // Tem que preencher a String cpf
+            IO.println("A descrição do exercício é obrigatória.");
+            return;
+        }
 
         Exercicio exercicio = new Exercicio(nome, descricao);
 
         adicionarExercicio(exercicio);
-
-        IO.println("Exercício cadastrado com sucesso!");
     }
 
     String continuar;
@@ -175,11 +171,34 @@ public class Academia {
         Professor professor = alunoSelecionado.getProfessorResponsavel();
 
         if (professor == null) {
-            IO.println("Este aluno não possui professor responsável.");
-            return;
+            
+            if (quantidadeProfessores == 0) {
+                IO.println("Nenhum professor cadastrado.");
+                return;
+            }
+
+            IO.println("\nSelecione um professor para ser o responsável:");
+
+            for (int i = 0; i < quantidadeProfessores; i++) {
+
+                professor = professores[i];
+
+                IO.println((i + 1) + " - " + professor.getNome());
+            }
+
+            int opcaoProfessor = Integer.parseInt(IO.readln("\nEscolha o professor: "));
+
+            if (opcaoProfessor < 1 || opcaoProfessor > quantidadeProfessores) {
+                IO.println("Professor inválido.");
+                return;
+            }
+
+            Professor professorSelecionado = professores[opcaoProfessor - 1];
+
+            alunoSelecionado.setProfessorResponsavel(professorSelecionado);
         }
 
-        IO.println("Professor responsável: " + professor.getNome());
+        IO.println("Professor responsável: " + alunoSelecionado.getProfessorResponsavel().getNome()); // Pega o nome do professor responsavel pelo aluno selecionado
 
         String diaFicha = IO.readln("\nDigite o dia da semana: ");
 
@@ -208,19 +227,15 @@ public class Academia {
                 continue;
             }
 
-            Exercicio exercicioSelecionado =
-                exercicios[opcaoExercicio - 1];
+            Exercicio exercicioSelecionado = exercicios[opcaoExercicio - 1];
 
             int series = Integer.parseInt(IO.readln("Quantidade de séries: "));
 
             int repeticoes = Integer.parseInt(IO.readln("Quantidade de repetições: "));
 
-            ExercicioTreino exercicioTreino =
-                new ExercicioTreino(exercicioSelecionado, series, repeticoes);
+            ExercicioTreino exercicioTreino = new ExercicioTreino(exercicioSelecionado, series, repeticoes);
 
             ficha.adicionarExercicio(exercicioTreino);
-
-            IO.println("Exercício adicionado à ficha.");
 
             continuar = IO.readln("\nAdicionar outro exercício? (s/n): ");
 

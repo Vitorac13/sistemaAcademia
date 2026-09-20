@@ -8,20 +8,12 @@ public class Aluno {
 
     public Aluno(String nome, String cpf) {
 
-        if (nome == null) {         // Tem que preencher a String nome
-            IO.println("O nome do aluno é obrigatório.");
-            return;
-        }
-
-        if (cpf == null) {          // Tem que preencher a String cpf
-            IO.println("O CPF do aluno é obrigatório.");
-            return;
-        }
-
         this.nome = nome;
         this.cpf = cpf;
         this.fichasTreino = new FichaTreino[5];             // O aluno pode ter até 5 fichas de treino
         this.quantidadeFichas = 0;              // O vetor tem 5 espaços para ficha, mas precisa saber quantas fichas cada aluno tem para ativar e desativar
+        
+        IO.println("Aluno cadastrado com sucesso!");
     }
 
     public String getNome() {

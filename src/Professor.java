@@ -6,10 +6,14 @@ public class Professor {
     private int quantidadeAlunos;
 
     public Professor(String nome, String cpf) {
+
         this.nome = nome;
         this.cpf = cpf;
         this.alunos = new Aluno[10];            // O professor tem um limite de 10 alunos por causa do tamanho do vetor criado      
         this.quantidadeAlunos = 0;
+
+        IO.println("Professor cadastrado com sucesso!");
+
     }
 
     public String getNome() {
