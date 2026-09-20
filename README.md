@@ -184,7 +184,7 @@ As cardinalidades utilizadas são:
 
 #### Diagrama de Entidade-Relacionamento (DER) 
 
-![alt text](UML_SistemaGestaoAcademia.jpg)
+![alt text](UML_SistemaGestaoAcademia.drawio.png)
 
 ## 6. Regras de negócio
 
